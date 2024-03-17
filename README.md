@@ -60,20 +60,19 @@ Navigate to http://127.0.0.1:8080/predict
 2. Import your github repo
 3. Modify src/mlflow_aws/config/configuration.py-> get_model_evaluation_config() in line #106 to your dagshub project URL
 4. Get the parameters from dagshub UI:
-MLFLOW_TRACKING_URI=https://dagshub.com/migumax/mlflow_aws.mlflow \
-MLFLOW_TRACKING_USERNAME=migumax \
-MLFLOW_TRACKING_PASSWORD=9cbae1b719fbb930f24346db8542134dec87fff6 \
+MLFLOW_TRACKING_URI=https://dagshub.com/hadainn/mlflow_aws.mlflow \
+MLFLOW_TRACKING_USERNAME=hadainn \
+MLFLOW_TRACKING_PASSWORD=2c709b8f805a0894c96137f84314b4347089a0f7 \
 python script.py
-
 5. Run this to export as env variables in you local terminal (after adapting the values to yours):
 
 ```shell
 
-export MLFLOW_TRACKING_URI=https://dagshub.com/migumax/mlflow_aws.mlflow
+export MLFLOW_TRACKING_URI=https://dagshub.com/hadainn/mlflow_aws.mlflow 
 
-export MLFLOW_TRACKING_USERNAME=migumax 
+export MLFLOW_TRACKING_USERNAME=hadainn 
 
-export MLFLOW_TRACKING_PASSWORD=9cbae1b719fbb930f24346db8542134dec87fff6
+export MLFLOW_TRACKING_PASSWORD=2c709b8f805a0894c96137f84314b4347089a0f7
 
 ```
 6. Run main.py, modify params.yaml & run main.py again
