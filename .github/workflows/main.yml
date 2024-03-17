@@ -1,0 +1,17 @@
+name: CML
+on: [push]
+jobs:
+  train-and-report:
+    runs-on: ubuntu-latest
+    container: docker://ghcr.io/iterative/cml:0-dvc2-base1
+    steps:
+      - uses: actions/checkout@v3
+      - name: Train model
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pip install -r requirements.txt
+          export MLFLOW_TRACKING_URI=https://dagshub.com/hadainn/mlflow_aws.mlflow 
+          export MLFLOW_TRACKING_USERNAME=hadainn 
+          export MLFLOW_TRACKING_PASSWORD=2c709b8f805a0894c96137f84314b4347089a0f7
+          python main.py
