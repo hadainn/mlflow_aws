@@ -1,10 +1,11 @@
-name: Docker Image CI
+ name: workflow
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+ on:
+   push:
+     branches:
+      - main
+     paths-ignore:
+       - 'README.md'
 
 jobs:
   build:
