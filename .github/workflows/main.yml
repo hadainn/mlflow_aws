@@ -1,11 +1,30 @@
-name: ci
-
+name: mlops-cicd
 on:
   push:
     branches:
       - "main"
-
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'ml module version'     
+        required: true
+        default: 'version 3'
 jobs:
+  train-and-report:
+    runs-on: ubuntu-latest
+    container: docker://ghcr.io/iterative/cml:0-dvc2-base1
+    steps:
+      - uses: actions/checkout@v3
+      - name: Train model
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pip install -r requirements.txt
+          export MLFLOW_TRACKING_URI=https://dagshub.com/hadainn/mlflow_aws.mlflow 
+          export MLFLOW_TRACKING_USERNAME=hadainn
+          export MLFLOW_TRACKING_PASSWORD=2c709b8f805a0894c96137f84314b4347089a0f7
+          python main.py 
+          
   build:
     runs-on: ubuntu-latest
     steps:
@@ -22,7 +41,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: . ${{ github.event.inputs.version }}" 
           file: ./Dockerfile
           push: true
           tags: mhadain/ml-image:latest
