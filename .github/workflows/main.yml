@@ -3,12 +3,6 @@ on:
   push:
      branches:
        - "main"
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'ml module version'     
-        required: true
-        default: 'version 3'
 jobs:
   mlops-ci:
     name: Continuous Integration
@@ -44,7 +38,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: . ${{ github.event.inputs.version }}" 
+          context: .
           file: ./Dockerfile
           push: true
           tags: mhadain/ml-image:latest
