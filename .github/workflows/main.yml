@@ -1,8 +1,5 @@
 name: mlops-cicd
 on:
-  push:
-    branches:
-      - "main"
   workflow_dispatch:
     inputs:
       version:
@@ -10,7 +7,8 @@ on:
         required: true
         default: 'version 3'
 jobs:
-  train-and-report:
+  mlops-ci:
+    name: Continuous Integration
     runs-on: ubuntu-latest
     container: docker://ghcr.io/iterative/cml:0-dvc2-base1
     steps:
@@ -25,7 +23,9 @@ jobs:
           export MLFLOW_TRACKING_PASSWORD=2c709b8f805a0894c96137f84314b4347089a0f7
           python main.py 
           
-  build:
+  build-ml-image:
+    name: Continuous Delivary
+    needs: mlops-ci
     runs-on: ubuntu-latest
     steps:
       -
